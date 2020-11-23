@@ -1,5 +1,6 @@
 package ru.uniquenature.myapplication
 
+import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -18,6 +19,8 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
+        val intent = Intent(this,MovieDetailsActivity::class.java)
+        startActivity(intent)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
