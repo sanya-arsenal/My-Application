@@ -5,10 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 
 class FragmentMoviesList : Fragment() {
-    private var imReplaceFragment: ImageView? = null
+    private var clReplaceFragment: ConstraintLayout? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -16,18 +17,18 @@ class FragmentMoviesList : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_movies_list,container,false)
-        imReplaceFragment = view.findViewById(R.id.iv_movie)
+        clReplaceFragment = view.findViewById(R.id.constraint_layout_image)
         return view
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        imReplaceFragment?.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()
-                ?.add(R.id.main_container,FragmentMoviesDetails())
-                ?.addToBackStack("FragmentMoviesDetails")?.commit()
+        clReplaceFragment?.setOnClickListener {
+            activity?.let {
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.main_container,FragmentMoviesDetails())
+                    .addToBackStack("FragmentMoviesDetails").commit()
+            }
         }
     }
 

@@ -21,102 +21,113 @@
         app:layout_constraintTop_toTopOf="parent"
         app:drawableStartCompat="@drawable/shape" />
 
-    <ImageView
-        android:id="@+id/iv_movie"
-        android:layout_width="0dp"
-        android:layout_height="300dp"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/roundrect"
-        android:contentDescription="@string/todo10"
-        android:scaleType="fitStart"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_movie_list"
-        app:srcCompat="@drawable/movie1" />
+        tools:ignore="MissingConstraints">
 
-    <TextView
-        android:id="@+id/tv_13_1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/roundrect1"
-        android:text="@string/_13_1"
-        android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="@id/iv_movie"
-        app:layout_constraintTop_toTopOf="@id/iv_movie" />
+        <ImageView
+            android:id="@+id/iv_movie"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            android:background="@drawable/roundrect"
+            android:contentDescription="@string/todo10"
+            android:scaleType="fitStart"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/constraint_layout_image"
+            app:srcCompat="@drawable/movie1" />
 
-    <ImageView
-        android:id="@+id/iv_like"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="@id/iv_movie"
-        app:layout_constraintTop_toTopOf="@id/iv_movie"
-        app:srcCompat="@drawable/like"
-        android:contentDescription="@string/todo11" />
+        <TextView
+            android:id="@+id/tv_13_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/roundrect1"
+            android:text="@string/_13_1"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="@id/iv_movie"
+            app:layout_constraintTop_toTopOf="@id/iv_movie" />
 
-    <TextView
-        android:id="@+id/tv_action_adventure_movie_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="4dp"
-        android:text="@string/action_adventure_fantasy"
-        android:textColor="@color/red"
-        android:textSize="8sp"
-        app:layout_constraintBottom_toTopOf="@id/rating_Bar_movie_list"
-        app:layout_constraintStart_toStartOf="@id/iv_movie"
-        tools:ignore="SmallSp" />
+        <ImageView
+            android:id="@+id/iv_like"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/todo11"
+            app:layout_constraintEnd_toEndOf="@id/iv_movie"
+            app:layout_constraintTop_toTopOf="@id/iv_movie"
+            app:srcCompat="@drawable/like" />
 
-    <TextView
-        android:id="@+id/tv_125_reviews"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:text="@string/_125_reviews"
-        android:textColor="@color/gray"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="@id/rating_Bar_movie_list"
-        app:layout_constraintStart_toEndOf="@id/rating_Bar_movie_list"
-        tools:ignore="SmallSp" />
+        <TextView
+            android:id="@+id/tv_action_adventure_movie_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="4dp"
+            android:text="@string/action_adventure_fantasy"
+            android:textColor="@color/red"
+            android:textSize="8sp"
+            app:layout_constraintBottom_toTopOf="@id/rating_Bar_movie_list"
+            app:layout_constraintStart_toStartOf="@id/iv_movie"
+            tools:ignore="SmallSp" />
 
-    <TextView
-        android:id="@+id/tv_avengers_and_games_movie_list"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="4dp"
-        android:text="@string/avengers_and_games"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@id/tv_137_min"
-        app:layout_constraintStart_toStartOf="@id/iv_movie" />
+        <TextView
+            android:id="@+id/tv_125_reviews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@string/_125_reviews"
+            android:textColor="@color/gray"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@id/rating_Bar_movie_list"
+            app:layout_constraintStart_toEndOf="@id/rating_Bar_movie_list"
+            tools:ignore="SmallSp" />
 
-    <TextView
-        android:id="@+id/tv_137_min"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/_137_min"
-        android:textColor="@color/gray"
-        android:textSize="8sp"
-        app:layout_constraintBottom_toBottomOf="@id/iv_movie"
-        app:layout_constraintStart_toStartOf="@id/iv_movie"
-        tools:ignore="SmallSp" />
+        <TextView
+            android:id="@+id/tv_avengers_and_games_movie_list"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="4dp"
+            android:text="@string/avengers_and_games"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@id/tv_137_min"
+            app:layout_constraintStart_toStartOf="@id/iv_movie" />
 
-    <RatingBar
-        android:id="@+id/rating_Bar_movie_list"
-        style="@style/Widget.AppCompat.RatingBar.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="12dp"
-        android:numStars="5"
-        android:progressBackgroundTint="@color/light"
-        android:progressTint="@color/red"
-        android:rating="4"
-        app:layout_constraintBottom_toTopOf="@id/tv_avengers_and_games_movie_list"
-        app:layout_constraintStart_toStartOf="@id/iv_movie" />
+        <TextView
+            android:id="@+id/tv_137_min"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/_137_min"
+            android:textColor="@color/gray"
+            android:textSize="8sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_movie"
+            app:layout_constraintStart_toStartOf="@id/iv_movie"
+            tools:ignore="SmallSp" />
+
+        <RatingBar
+            android:id="@+id/rating_Bar_movie_list"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="12dp"
+            android:numStars="5"
+            android:progressBackgroundTint="@color/light"
+            android:progressTint="@color/red"
+            android:rating="4"
+            app:layout_constraintBottom_toTopOf="@id/tv_avengers_and_games_movie_list"
+            app:layout_constraintStart_toStartOf="@id/iv_movie" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
