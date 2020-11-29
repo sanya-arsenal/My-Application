@@ -10,4 +10,6 @@
     <color name="red">#AE2020</color>
     <color name="dark">#453232</color>
     <color name="light">#887878</color>
+    <color name="gray">#4E4C4C</color>
+    <color name="background">#191926</color>
 </resources>
