@@ -30,16 +30,30 @@ class FragmentMoviesDetails : Fragment() {
                     .replace(R.id.main_container, FragmentMoviesList()).commit()
             }
             recyclerActor = view.findViewById(R.id.rv_actors_list)
-            recyclerActor?.adapter = ActorsAdapter()
+            recyclerActor?.adapter = ActorsAdapter(ActorsDataSource.returnActors())
             recyclerActor?.layoutManager = LinearLayoutManager(context,RecyclerView.HORIZONTAL,false)
     }
 
-    override fun onStart() {
-        super.onStart()
-        (recyclerActor?.adapter as? ActorsAdapter)?.apply {
-            bindActors(ActorsDataSource().getActors())
+    object ActorsDataSource{
+        private val actors = listOf(
+            Actor(R.drawable.robert,"Robert Downey Jr."),
+            Actor(R.drawable.chris_e,"Chris Evans"),
+            Actor(R.drawable.mark,"Mark Ruffalo"),
+            Actor(R.drawable.chris_h,"Chris Hemsworth"),
+            Actor(R.drawable.mark,"Mark Ruffalo"),
+            Actor(R.drawable.robert,"Robert Downey Jr."),
+            Actor(R.drawable.mark,"Mark Ruffalo"),
+            Actor(R.drawable.robert,"Robert Downey Jr.")
+        )
+
+        fun returnActors(): List<Actor>{
+            return actors
         }
     }
 
+    data class Actor(
+        val photoActor: Int,
+        val nameActor: String
+    )
 }
 
