@@ -8,7 +8,7 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class MoviesAdapter(private val movies:List<FragmentMoviesList.Movie>):RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
+class MoviesAdapter(private val movies:List<Movie>, private val adapterOnClick:(String)->Unit):RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_holder_movie,parent,false))
@@ -25,13 +25,13 @@ class MoviesAdapter(private val movies:List<FragmentMoviesList.Movie>):RecyclerV
             nameMovie?.text = movies[position].movie_name
             duration?.text = movies[position].movie_duration
 
-            itemView.setOnClickListener { (movies[position]) }
+            itemView.setOnClickListener { adapterOnClick(movies[position].movie_name) }
         }
     }
 
     override fun getItemCount(): Int = movies.size
 
-    class MovieViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){
+    inner class MovieViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){
         val age: TextView? = itemView.findViewById(R.id.tv_age)
         val like: ImageView? = itemView.findViewById(R.id.iv_like)
         val imageMovie: ImageView? = itemView.findViewById(R.id.iv_movie)
