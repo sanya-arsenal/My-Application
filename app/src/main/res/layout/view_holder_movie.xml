@@ -4,23 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cl_movie"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@color/background">
+    android:layout_height="300dp"
+    android:layout_margin="5dp"
+    android:background="@drawable/roundrect">
 
     <ImageView
         android:id="@+id/iv_movie"
         android:layout_width="wrap_content"
-        android:layout_height="300dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
-        android:background="@drawable/roundrect"
+        android:layout_height="245dp"
         android:contentDescription="@string/todo10"
-        android:scaleType="fitStart"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="@id/cl_movie"
+        app:layout_constraintStart_toStartOf="@id/cl_movie"
+        app:layout_constraintTop_toTopOf="@id/cl_movie"
         app:srcCompat="@drawable/avengers_and_games" />
 
     <TextView
@@ -51,7 +47,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginBottom="4dp"
         android:text="@string/action_adventure_fantasy"
         android:textColor="@color/red"
         android:textSize="8sp"
@@ -76,23 +71,22 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginBottom="4dp"
         android:text="@string/avengers_and_games"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@id/tv_min"
-        app:layout_constraintStart_toStartOf="@id/iv_movie" />
+        app:layout_constraintStart_toStartOf="@id/cl_movie" />
 
     <TextView
         android:id="@+id/tv_min"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="4dp"
         android:text="@string/_137_min"
         android:textColor="@color/gray"
         android:textSize="8sp"
-        app:layout_constraintBottom_toBottomOf="@id/iv_movie"
-        app:layout_constraintStart_toStartOf="@id/iv_movie"
+        app:layout_constraintBottom_toBottomOf="@id/cl_movie"
+        app:layout_constraintStart_toStartOf="@id/cl_movie"
         tools:ignore="SmallSp" />
 
     <RatingBar
@@ -101,7 +95,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="16dp"
         android:numStars="5"
         android:progressBackgroundTint="@color/light"
         android:progressTint="@color/red"
