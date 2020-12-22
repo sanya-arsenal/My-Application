@@ -1,7 +1,6 @@
 package ru.uniquenature.myapplication
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,14 +9,10 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 import ru.uniquenature.myapplication.data.Movie
 
-class MoviesAdapter(private val movies: List<Movie>, private val adapterOnClick:(Int)->Unit):RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
+class MoviesAdapter(private val movies: List<Movie>, private val adapterOnClick: (List<Movie>,Int) -> Unit):RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_holder_movie,parent,false))
@@ -34,7 +29,7 @@ class MoviesAdapter(private val movies: List<Movie>, private val adapterOnClick:
             nameMovie?.text = movies[position].title
             duration?.text = movies[position].runtime.toString()+ " MIN"
 
-            itemView.setOnClickListener { adapterOnClick(position) }
+            itemView.setOnClickListener { adapterOnClick(movies,position) }
         }
     }
 

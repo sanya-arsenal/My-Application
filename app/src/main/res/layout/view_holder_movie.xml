@@ -17,7 +17,7 @@
         app:layout_constraintEnd_toEndOf="@id/cl_movie"
         app:layout_constraintStart_toStartOf="@id/cl_movie"
         app:layout_constraintTop_toTopOf="@id/cl_movie"
-        app:srcCompat="@drawable/avengers_and_games" />
+         />
 
     <TextView
         android:id="@+id/tv_age"
@@ -28,8 +28,8 @@
         android:background="@drawable/roundrect1"
         android:text="@string/_13_1"
         android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="@id/iv_movie"
-        app:layout_constraintTop_toTopOf="@id/iv_movie" />
+        app:layout_constraintStart_toStartOf="@id/cl_movie"
+        app:layout_constraintTop_toTopOf="@id/cl_movie" />
 
     <ImageView
         android:id="@+id/iv_like"
@@ -38,8 +38,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:contentDescription="@string/todo11"
-        app:layout_constraintEnd_toEndOf="@id/iv_movie"
-        app:layout_constraintTop_toTopOf="@id/iv_movie"
+        app:layout_constraintEnd_toEndOf="@id/cl_movie"
+        app:layout_constraintTop_toTopOf="@id/cl_movie"
         app:srcCompat="@drawable/like" />
 
     <TextView
@@ -51,7 +51,7 @@
         android:textColor="@color/red"
         android:textSize="8sp"
         app:layout_constraintBottom_toTopOf="@id/rating_Bar_movie"
-        app:layout_constraintStart_toStartOf="@id/iv_movie"
+        app:layout_constraintStart_toStartOf="@id/cl_movie"
         tools:ignore="SmallSp" />
 
     <TextView
@@ -101,6 +101,6 @@
         android:progressTint="@color/red"
         android:rating="4"
         app:layout_constraintBottom_toTopOf="@id/tv_movie_name"
-        app:layout_constraintStart_toStartOf="@id/iv_movie" />
+        app:layout_constraintStart_toStartOf="@id/cl_movie" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

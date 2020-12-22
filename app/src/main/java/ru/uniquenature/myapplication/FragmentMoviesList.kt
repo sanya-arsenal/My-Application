@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import ru.uniquenature.myapplication.data.Movie
 import ru.uniquenature.myapplication.data.loadMovies
@@ -28,14 +29,19 @@ class FragmentMoviesList : Fragment() {
         recycler = view.findViewById(R.id.rv_movie_list)
         scope.launch {
             context?.let {
-                recycler?.adapter = MoviesAdapter(loadMovies(it)) { item -> doClick(item) }
+                recycler?.adapter = MoviesAdapter(loadMovies(it)) { item,item1 -> doClick(item,item1) }
             }
         }
         recycler?.layoutManager = GridLayoutManager(context, 2)
     }
 
-    private fun doClick(position:Int) {
-            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.main_container,FragmentMoviesDetails(position))
+    private fun doClick(movies:List<Movie>, position:Int) {
+            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.main_container,FragmentMoviesDetails(movies, position))
                 .addToBackStack("FragmentMoviesDetails").commit()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        scope.cancel()
     }
 }

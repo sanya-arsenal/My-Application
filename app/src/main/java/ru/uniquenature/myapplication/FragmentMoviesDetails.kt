@@ -12,14 +12,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
 import ru.uniquenature.myapplication.data.Movie
-import ru.uniquenature.myapplication.data.loadMovies
 
-class FragmentMoviesDetails(private val position: Int) : Fragment() {
+class FragmentMoviesDetails(private val movies: List<Movie>, private val position:Int) : Fragment() {
     private var recyclerActor: RecyclerView? = null
     private var backFragment: TextView? = null
     private var age: TextView? = null
@@ -29,9 +24,6 @@ class FragmentMoviesDetails(private val position: Int) : Fragment() {
     private var rating: RatingBar? = null
     private var reviews: TextView? = null
     private var overView: TextView? = null
-
-    //private var movies: List<Movie> = listOf()
-    private val scope = CoroutineScope(Dispatchers.Main)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,16 +49,13 @@ class FragmentMoviesDetails(private val position: Int) : Fragment() {
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.main_container, FragmentMoviesList()).commit()
         }
-        scope.launch {
-            context?.let {
-                showResult(loadMovies(it))
-            }
-        }
+        showResult()
+
         recyclerActor?.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
     }
 
     @SuppressLint("SetTextI18n")
-    private fun showResult(movies: List<Movie>) {
+    private fun showResult() {
         age?.text = movies[position].minimumAge.toString() + "+"
         title?.text = movies[position].title
         image?.let { Glide.with(this).load(movies[position].backdrop).into(it) }
