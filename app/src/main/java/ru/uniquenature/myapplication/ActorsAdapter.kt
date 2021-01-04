@@ -6,8 +6,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import ru.uniquenature.myapplication.data.Actor
 
-class ActorsAdapter(private var actors: List<FragmentMoviesDetails.Actor>):RecyclerView.Adapter<ActorsAdapter.ActorViewHolder>() {
+class ActorsAdapter(private var actors: List<Actor>):RecyclerView.Adapter<ActorsAdapter.ActorViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActorViewHolder {
         return ActorViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_holder_actor,parent,false))
@@ -15,8 +17,9 @@ class ActorsAdapter(private var actors: List<FragmentMoviesDetails.Actor>):Recyc
 
     override fun onBindViewHolder(holder: ActorViewHolder, position: Int) {
         holder.apply {
-            photo?.setImageResource(actors[position].photoActor)
-            name?.text = actors[position].nameActor
+            photo?.let { Glide.with(itemView).load(actors[position].picture).into(it) }
+            //photo?.setImageResource(actors[position].photoActor)
+            name?.text = actors[position].name
         }
     }
 
