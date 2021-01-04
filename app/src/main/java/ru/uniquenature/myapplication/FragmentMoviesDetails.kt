@@ -14,7 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ru.uniquenature.myapplication.data.Movie
 
-class FragmentMoviesDetails(private val movies: List<Movie>, private val position:Int) : Fragment() {
+class FragmentMoviesDetails : Fragment() {
+    private var movie: Movie? = null
     private var recyclerActor: RecyclerView? = null
     private var backFragment: TextView? = null
     private var age: TextView? = null
@@ -49,21 +50,31 @@ class FragmentMoviesDetails(private val movies: List<Movie>, private val positio
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.main_container, FragmentMoviesList()).commit()
         }
-        showResult()
-
+        movie = arguments?.getParcelable(KEY_MOVIE_DATA)
+        movie?.let {
+            showResult(it)
+        }
         recyclerActor?.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
     }
 
     @SuppressLint("SetTextI18n")
-    private fun showResult() {
-        age?.text = movies[position].minimumAge.toString() + "+"
-        title?.text = movies[position].title
-        image?.let { Glide.with(this).load(movies[position].backdrop).into(it) }
-        genres?.text = movies[position].genres.joinToString(separator = ", ") { it.name }
-        rating?.rating = movies[position].ratings / 2
-        reviews?.text = movies[position].numberOfRatings.toString() + " REVIEWS"
-        overView?.text = movies[position].overview
-        recyclerActor?.adapter = ActorsAdapter(movies[position].actors)
+    private fun showResult(movie: Movie) {
+        age?.text = movie.minimumAge.toString() + "+"
+        title?.text = movie.title
+        image?.let { Glide.with(this).load(movie.backdrop).into(it) }
+        genres?.text = movie.genres.joinToString(separator = ", ") { it.name }
+        rating?.rating = movie.ratings / 2
+        reviews?.text = movie.numberOfRatings.toString() + " REVIEWS"
+        overView?.text = movie.overview
+        recyclerActor?.adapter = ActorsAdapter(movie.actors)
+    }
+
+    companion object{
+        private const val KEY_MOVIE_DATA = "movieDetails"
+        fun newInstance(movie:Movie) = FragmentMoviesDetails().apply{
+                arguments = Bundle().apply {
+                    putParcelable(KEY_MOVIE_DATA, movie)
+            }
+        }
     }
 }
-

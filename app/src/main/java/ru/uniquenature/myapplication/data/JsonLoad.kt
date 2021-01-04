@@ -8,7 +8,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
-
 private val jsonFormat = Json { ignoreUnknownKeys = true }
 
 @Serializable

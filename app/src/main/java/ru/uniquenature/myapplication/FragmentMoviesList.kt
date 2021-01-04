@@ -27,16 +27,16 @@ class FragmentMoviesList : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recycler = view.findViewById(R.id.rv_movie_list)
+        recycler?.layoutManager = GridLayoutManager(context, 2)
         scope.launch {
             context?.let {
-                recycler?.adapter = MoviesAdapter(loadMovies(it)) { item,item1 -> doClick(item,item1) }
+                recycler?.adapter = MoviesAdapter(loadMovies(it)) { item -> doClick(item) }
             }
         }
-        recycler?.layoutManager = GridLayoutManager(context, 2)
     }
 
-    private fun doClick(movies:List<Movie>, position:Int) {
-            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.main_container,FragmentMoviesDetails(movies, position))
+    private fun doClick(movie:Movie) {
+            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.main_container,FragmentMoviesDetails.newInstance(movie))
                 .addToBackStack("FragmentMoviesDetails").commit()
     }
 

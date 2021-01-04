@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 
 import ru.uniquenature.myapplication.data.Movie
 
-class MoviesAdapter(private val movies: List<Movie>, private val adapterOnClick: (List<Movie>,Int) -> Unit):RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
+class MoviesAdapter(private val movies: List<Movie>, private val adapterOnClick: (Movie) -> Unit):RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_holder_movie,parent,false))
@@ -29,7 +29,7 @@ class MoviesAdapter(private val movies: List<Movie>, private val adapterOnClick:
             nameMovie?.text = movies[position].title
             duration?.text = movies[position].runtime.toString()+ " MIN"
 
-            itemView.setOnClickListener { adapterOnClick(movies,position) }
+            itemView.setOnClickListener { adapterOnClick(movies[position]) }
         }
     }
 
