@@ -40,22 +40,22 @@ class FragmentMoviesList : Fragment() {
     }
 
     private fun setState(state:ListMoviesViewModel.ViewModelListState)= when (state){
-        is ListMoviesViewModel.ViewModelListState.Success->setAdapter(state.list)
-        is ListMoviesViewModel.ViewModelListState.Error->errors(state.error)
-        is ListMoviesViewModel.ViewModelListState.Loading->loadingData()
+        is ListMoviesViewModel.ViewModelListState.Success->showMovies(state.list)
+        is ListMoviesViewModel.ViewModelListState.Error->showError(state.error)
+        is ListMoviesViewModel.ViewModelListState.Loading->showProgress()
     }
 
-    private fun loadingData(){
+    private fun showProgress(){
         progress?.isVisible = true
     }
 
-    private fun setAdapter(movies:List<Movie>){
+    private fun showMovies(movies:List<Movie>){
         recycler?.adapter = MoviesAdapter(movies){item -> doClick(item)}
         progress?.isVisible = false
     }
 
     @SuppressLint("ShowToast")
-    private fun errors(error:String){
+    private fun showError(error:String){
         recycler?.isVisible = false
         Toast.makeText(activity,error,Toast.LENGTH_LONG).show()
     }

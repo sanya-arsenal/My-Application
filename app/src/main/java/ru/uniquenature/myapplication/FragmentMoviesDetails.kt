@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -47,7 +49,7 @@ class FragmentMoviesDetails : Fragment() {
 
     private fun setState(state:DetailsMovieViewModel.ViewModelDetailsState) {
         when(state){
-            is DetailsMovieViewModel.ViewModelDetailsState.Error->state.error
+            is DetailsMovieViewModel.ViewModelDetailsState.Error->showError(state.error)
             is DetailsMovieViewModel.ViewModelDetailsState.Success->showResult(state.movie)
         }
     }
@@ -57,6 +59,10 @@ class FragmentMoviesDetails : Fragment() {
             requireActivity().supportFragmentManager.beginTransaction()
                     .replace(R.id.main_container, FragmentMoviesList()).commit()
         }
+    }
+
+    private fun showError(error:String){
+        Toast.makeText(activity,error, Toast.LENGTH_LONG).show()
     }
 
     private fun initViews(view: View){
