@@ -1,4 +1,4 @@
-package ru.uniquenature.myapplication
+package ru.uniquenature.myapplication.viewModel
 
 import android.os.Bundle
 import androidx.lifecycle.LiveData
@@ -17,15 +17,14 @@ class DetailsMovieViewModel(private val check: VerifyData):ViewModel() {
     fun loadingDetails(bundle:Bundle){
         val movie = bundle.getParcelable<Movie>(KEY_MOVIE_DATA)
         val newState = when(movie?.let { check.checkedMovie(movie) }){
-            is VerifyResult.Error->ViewModelDetailsState.Error("Error")
+            is VerifyResult.Error-> ViewModelDetailsState.Error("Error")
             else -> movie?.let { ViewModelDetailsState.Success(it) }
-
         }
         mutableDetailsMovie.value = newState
     }
 
     sealed class ViewModelDetailsState{
-        data class Success(val movie: Movie):ViewModelDetailsState()
-        data class Error(val error: String):ViewModelDetailsState()
+        data class Success(val movie: Movie): ViewModelDetailsState()
+        data class Error(val error: String): ViewModelDetailsState()
     }
 }

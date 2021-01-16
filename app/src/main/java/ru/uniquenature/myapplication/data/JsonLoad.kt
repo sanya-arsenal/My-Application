@@ -48,7 +48,7 @@ private suspend fun loadGenres(context: Context): List<Genre> = withContext(Disp
 
 internal fun parseGenres(data: String): List<Genre> {
     val jsonGenres = jsonFormat.decodeFromString<List<JsonGenre>>(data)
-    return jsonGenres.map { Genre(id = it.id, name = it.name) }
+    return jsonGenres.map { Genre(id = it.id.toLong(), name = it.name) }
 }
 
 private fun readAssetFileToString(context: Context, fileName: String): String {
@@ -63,7 +63,7 @@ private suspend fun loadActors(context: Context): List<Actor> = withContext(Disp
 
 internal fun parseActors(data: String): List<Actor> {
     val jsonActors = jsonFormat.decodeFromString<List<JsonActor>>(data)
-    return jsonActors.map { Actor(id = it.id, name = it.name, picture = it.profilePicture) }
+    return jsonActors.map { Actor(id = it.id.toLong(), name = it.name, picture = it.profilePicture) }
 }
 
 @Suppress("unused")
@@ -88,13 +88,13 @@ internal fun parseMovies(
     return jsonMovies.map { jsonMovie ->
         @Suppress("unused")
         (Movie(
-        id = jsonMovie.id,
+        id = jsonMovie.id.toLong(),
         title = jsonMovie.title,
         overview = jsonMovie.overview,
         poster = jsonMovie.posterPicture,
         backdrop = jsonMovie.backdropPicture,
-        ratings = jsonMovie.ratings,
-        numberOfRatings = jsonMovie.votesCount,
+        ratings = jsonMovie.ratings.toDouble(),
+        numberOfRatings = jsonMovie.votesCount.toLong(),
         minimumAge = if (jsonMovie.adult) 16 else 13,
         runtime = jsonMovie.runtime,
         genres = jsonMovie.genreIds.map {
