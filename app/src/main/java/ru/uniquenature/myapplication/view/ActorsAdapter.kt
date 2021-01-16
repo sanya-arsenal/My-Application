@@ -1,4 +1,4 @@
-package ru.uniquenature.myapplication
+package ru.uniquenature.myapplication.view
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +7,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import ru.uniquenature.myapplication.R
 import ru.uniquenature.myapplication.data.Actor
+import ru.uniquenature.myapplication.data.MoviesAPI
 
 class ActorsAdapter(private var actors: List<Actor>):RecyclerView.Adapter<ActorsAdapter.ActorViewHolder>() {
 

@@ -1,4 +1,4 @@
-package ru.uniquenature.myapplication
+package ru.uniquenature.myapplication.view
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -14,6 +14,10 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
+import kotlinx.serialization.ExperimentalSerializationApi
+import ru.uniquenature.myapplication.R
+import ru.uniquenature.myapplication.viewModel.ListMoviesViewModel
+import ru.uniquenature.myapplication.viewModel.ListViewModelFactory
 import ru.uniquenature.myapplication.data.Movie
 
 class FragmentMoviesList : Fragment() {
@@ -30,16 +34,15 @@ class FragmentMoviesList : Fragment() {
         savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.fragment_movies_list,container,false)
 
+    @ExperimentalSerializationApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews(view)
-        context?.let {
-            viewModel.loadingMovies(it)
-        }
+        viewModel.loadingMovies()
         viewModel.listMoviesState.observe(this.viewLifecycleOwner,this::setState)
     }
 
-    private fun setState(state:ListMoviesViewModel.ViewModelListState)= when (state){
+    private fun setState(state: ListMoviesViewModel.ViewModelListState)= when (state){
         is ListMoviesViewModel.ViewModelListState.Success->showMovies(state.list)
         is ListMoviesViewModel.ViewModelListState.Error->showError(state.error)
         is ListMoviesViewModel.ViewModelListState.Loading->showProgress()
@@ -57,6 +60,7 @@ class FragmentMoviesList : Fragment() {
     @SuppressLint("ShowToast")
     private fun showError(error:String){
         recycler?.isVisible = false
+        progress?.isVisible = false
         Toast.makeText(activity,error,Toast.LENGTH_LONG).show()
     }
 
@@ -67,7 +71,7 @@ class FragmentMoviesList : Fragment() {
     }
 
     private fun doClick(movie:Movie) {
-            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.main_container,FragmentMoviesDetails.newInstance(movie))
+            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.main_container, FragmentMoviesDetails.newInstance(movie))
                 .addToBackStack("FragmentMoviesDetails").commit()
     }
 

@@ -1,4 +1,4 @@
-package ru.uniquenature.myapplication
+package ru.uniquenature.myapplication.view
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import ru.uniquenature.myapplication.R
 
 import ru.uniquenature.myapplication.data.Movie
 
@@ -24,7 +25,7 @@ class MoviesAdapter(private val movies: List<Movie>, private val adapterOnClick:
             age?.text = movies[position].minimumAge.toString()+"+"
             imageMovie?.let { Glide.with(itemView).load(movies[position].poster).into(it) }
             genre?.text = movies[position].genres.joinToString(separator = ", "){it.name}
-            rating?.rating = movies[position].ratings/2
+            rating?.rating = (movies[position].ratings/2).toFloat()
             reviews?.text = movies[position].numberOfRatings.toString() + " REVIEWS"
             nameMovie?.text = movies[position].title
             duration?.text = movies[position].runtime.toString()+ " MIN"

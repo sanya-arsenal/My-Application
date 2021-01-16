@@ -1,4 +1,4 @@
-package ru.uniquenature.myapplication
+package ru.uniquenature.myapplication.view
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -9,12 +9,14 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import ru.uniquenature.myapplication.R
+import ru.uniquenature.myapplication.viewModel.DetailsMovieViewModel
+import ru.uniquenature.myapplication.viewModel.DetailsViewModelFactory
 import ru.uniquenature.myapplication.data.Movie
 
 class FragmentMoviesDetails : Fragment() {
@@ -47,7 +49,7 @@ class FragmentMoviesDetails : Fragment() {
         viewModel.detailsMovieState.observe(this.viewLifecycleOwner,this::setState)
     }
 
-    private fun setState(state:DetailsMovieViewModel.ViewModelDetailsState) {
+    private fun setState(state: DetailsMovieViewModel.ViewModelDetailsState) {
         when(state){
             is DetailsMovieViewModel.ViewModelDetailsState.Error->showError(state.error)
             is DetailsMovieViewModel.ViewModelDetailsState.Success->showResult(state.movie)
@@ -84,7 +86,7 @@ class FragmentMoviesDetails : Fragment() {
         title?.text = movie.title
         image?.let { Glide.with(this).load(movie.backdrop).into(it) }
         genres?.text = movie.genres.joinToString(separator = ", ") { it.name }
-        rating?.rating = movie.ratings / 2
+        rating?.rating = (movie.ratings / 2).toFloat()
         reviews?.text = movie.numberOfRatings.toString() + " REVIEWS"
         overView?.text = movie.overview
         recyclerActor?.adapter = ActorsAdapter(movie.actors)

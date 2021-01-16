@@ -1,3 +1,17 @@
 package ru.uniquenature.myapplication.data
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-data class Genre(val id: Int, val name: String)
+@Serializable
+data class ListGenres (
+    @SerialName("genres")
+    val genres: List<Genre>
+)
+
+@Serializable
+data class Genre(
+    @SerialName("id")
+    val id: Long,
+    @SerialName("name")
+    val name: String
+)
