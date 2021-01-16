@@ -13,6 +13,7 @@ import retrofit2.Retrofit
 object RemoteDataStore {
     const val API_KEY_HEADER = "api-key"
     private val json = Json { ignoreUnknownKeys = true }
+    val moviesRepository = MoviesRepository()
 
     private class MoviesHeaderInterceptors : Interceptor{
         override fun intercept(chain: Interceptor.Chain): Response {
@@ -42,4 +43,24 @@ object RemoteDataStore {
 
     @ExperimentalSerializationApi
     val moviesAPI:MoviesAPI = retrofit.create(MoviesAPI::class.java)
+
+    @ExperimentalSerializationApi
+    suspend fun getGenres():List<Genre>{
+        return moviesAPI.getGenres().genres
+    }
+
+    @ExperimentalSerializationApi
+    suspend fun getRuntime(movie_id:Long):Int{
+        return moviesAPI.getRunTime(movie_id).runtime
+    }
+
+    @ExperimentalSerializationApi
+    suspend fun getPopularMovies():List<Movies>{
+        return moviesAPI.getPopularMovies().results
+    }
+
+    @ExperimentalSerializationApi
+    suspend fun getActors(movie_id:Long):List<Actor>{
+        return moviesAPI.getActors(movie_id).cast
+    }
 }

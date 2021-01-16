@@ -2,7 +2,6 @@ package ru.uniquenature.myapplication.viewModel
 
 import android.content.ContentValues.TAG
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,9 +13,9 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import ru.uniquenature.myapplication.check.VerifyData
 import ru.uniquenature.myapplication.check.VerifyResult
 import ru.uniquenature.myapplication.data.Movie
-import ru.uniquenature.myapplication.data.RepositoryMovies
+import ru.uniquenature.myapplication.data.MoviesRepository
 
-class ListMoviesViewModel(private val check: VerifyData, private val repository:RepositoryMovies): ViewModel() {
+class ListMoviesViewModel(private val check: VerifyData, private val repository:MoviesRepository): ViewModel() {
     private val mutableListMovies = MutableLiveData<ViewModelListState>()
 
     val listMoviesState: LiveData<ViewModelListState> get() = mutableListMovies
