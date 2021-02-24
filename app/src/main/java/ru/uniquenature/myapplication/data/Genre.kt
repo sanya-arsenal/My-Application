@@ -1,4 +1,6 @@
 package ru.uniquenature.myapplication.data
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -8,10 +10,12 @@ data class ListGenres (
     val genres: List<Genre>
 )
 
+@Entity
 @Serializable
 data class Genre(
-    @SerialName("id")
-    val id: Long,
-    @SerialName("name")
-    val name: String
+        @PrimaryKey(autoGenerate = false)
+        @SerialName("id")
+        val id: Long,
+        @SerialName("name")
+        val name: String
 )

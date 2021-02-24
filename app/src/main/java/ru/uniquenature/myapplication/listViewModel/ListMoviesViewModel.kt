@@ -1,4 +1,4 @@
-package ru.uniquenature.myapplication.viewModel
+package ru.uniquenature.myapplication.listViewModel
 
 import android.content.ContentValues.TAG
 import android.util.Log
@@ -28,13 +28,22 @@ class ListMoviesViewModel(private val check: VerifyData, private val repository:
     fun loadingMovies(){
         viewModelScope.launch(exceptionHandler) {
             mutableListMovies.value = ViewModelListState.Loading
-            val list = repository.loadMovies()
-            //val list = loadMovies(context)
+            val list = repository.readMoviesDB()
+            list.sortedBy { it.ratings }
             val newState = when(check.checkedMovies(list)){
-                is VerifyResult.Error-> ViewModelListState.Error("Loading error")
+                is VerifyResult.Error-> ViewModelListState.Error("Loading error DB")
                 is VerifyResult.Success-> ViewModelListState.Success(list)
             }
             mutableListMovies.value = newState
+
+            val list1 = repository.loadMovies()
+            list1.sortedBy { it.ratings }
+            val newState1 = when(check.checkedMovies(list1)){
+                is VerifyResult.Error-> ViewModelListState.Error("Loading error")
+                is VerifyResult.Success-> ViewModelListState.Success(list1)
+            }
+            mutableListMovies.value = newState1
+            repository.saveMoviesDB(list1)
         }
     }
 

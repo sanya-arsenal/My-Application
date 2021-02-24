@@ -1,5 +1,9 @@
 package ru.uniquenature.myapplication.data
 
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.Relation
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -29,6 +33,7 @@ data class Movies (
         @SerialName("genre_ids")
         val genreIDS: List<Long>,
 
+        @PrimaryKey
         @SerialName("id")
         val id: Long,
 
@@ -48,11 +53,27 @@ data class Movies (
         val voteCount: Long
 )
 
-@Serializable
-data class RunTime (
-        @SerialName("id")
+@Entity
+data class MoviesTableEntity (
+        @PrimaryKey(autoGenerate = false)
         val id: Long,
+        val adult: Long,
+        val backdropPath: String?,
+        val genreIDS: List<Long>,
+        val originalTitle: String?,
+        val overview: String?,
+        val posterPath: String?,
+        val runTime: Long,
+        val voteAverage: Double,
+        val voteCount: Long
+)
 
-        @SerialName("runtime")
-        val runtime:Int
+data class MovieWithActors(
+        @Embedded val moviesTableEntity: MoviesTableEntity,
+        @Relation(
+                parentColumn = "id",
+                entityColumn = "id_Movie",
+                entity = ActorsTableEntity::class
+        )
+        val actors: List<Actor>
 )

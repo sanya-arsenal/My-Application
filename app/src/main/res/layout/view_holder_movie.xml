@@ -14,10 +14,10 @@
         android:layout_height="245dp"
         android:contentDescription="@string/todo10"
         android:scaleType="centerCrop"
+        android:src="@drawable/avengers_and_games"
         app:layout_constraintEnd_toEndOf="@id/cl_movie"
         app:layout_constraintStart_toStartOf="@id/cl_movie"
-        app:layout_constraintTop_toTopOf="@id/cl_movie"
-         />
+        app:layout_constraintTop_toTopOf="@id/cl_movie"/>
 
     <TextView
         android:id="@+id/tv_age"
