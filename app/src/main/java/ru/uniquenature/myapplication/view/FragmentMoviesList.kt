@@ -19,7 +19,6 @@ import ru.uniquenature.myapplication.R
 import ru.uniquenature.myapplication.listViewModel.ListMoviesViewModel
 import ru.uniquenature.myapplication.listViewModel.ListViewModelFactory
 import ru.uniquenature.myapplication.data.Movie
-import kotlin.coroutines.coroutineContext
 
 class FragmentMoviesList : Fragment() {
     private val viewModel: ListMoviesViewModel by viewModels { ListViewModelFactory(applicationContext = requireContext().applicationContext) }
@@ -73,9 +72,6 @@ class FragmentMoviesList : Fragment() {
 
 
     private fun doClick(id_movie:Long) {
-       // requireActivity().supportFragmentManager.beginTransaction().replace(R.id.main_container, FragmentMoviesDetails.newInstance(id_movie))
-       //     .addToBackStack("FragmentMoviesDetails").commit()
-
         requireActivity().supportFragmentManager.beginTransaction().add(R.id.main_container, FragmentMoviesDetails.newInstance(id_movie))
              .addToBackStack("FragmentMoviesDetails").commit()
     }

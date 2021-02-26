@@ -68,9 +68,7 @@ class MoviesRepository(private val dataStore : RemoteDataStore, context: Context
         }
     }
 
-    private suspend fun convertMovieToMovieScreen(movies: List<MovieWithActors>): List<Movie>{
-        val genre1: List<Genre> = readGenreDB()
-        val genresMap1 = genre1.associateBy { it.id }
+    private fun convertMovieToMovieScreen(movies: List<MovieWithActorsGenres>): List<Movie>{
         return movies.map { movie->
             Movie(
                     id = movie.moviesTableEntity.id,
@@ -82,7 +80,7 @@ class MoviesRepository(private val dataStore : RemoteDataStore, context: Context
                     numberOfRatings = movie.moviesTableEntity.voteCount,
                     minimumAge = movie.moviesTableEntity.adult.toInt(),
                     runtime = movie.moviesTableEntity.runTime.toInt(),
-                    genres = movie.moviesTableEntity.genreIDS.map { genresMap1[it] ?: throw IllegalArgumentException("Genre not found") },
+                    genres = movie.genres,
                     actors = movie.actors
             )
         }
@@ -99,19 +97,23 @@ class MoviesRepository(private val dataStore : RemoteDataStore, context: Context
         }
     }
 
-    suspend fun readMovieDB(id: Long) : Movie{
+    private fun convertMovieToGenresDB(idMovie:Long, genres: List<Genre>) : List<GenreTableEntity>{
+        return genres.map { movie->
+            GenreTableEntity(
+                    id_Movie = idMovie,
+                    id = movie.id,
+                    name = movie.name,
+            )
+        }
+    }
+
+    suspend fun getMovieForDB(id: Long) : Movie{
         return withContext(Dispatchers.IO){
             convertMovieToMovieScreen(instanceDataBase.moviesDao.getMovie(id_movie = id))[0]
         }
     }
 
-    private suspend fun readGenreDB(): List<Genre> {
-        return withContext(Dispatchers.IO) {
-            instanceDataBase.moviesDao.getGenres()
-        }
-    }
-
-    suspend fun readMoviesDB() : List<Movie> {
+    suspend fun getMoviesForDB() : List<Movie> {
         return withContext(Dispatchers.IO) {
             convertMovieToMovieScreen(instanceDataBase.moviesDao.getMovies())
         }
@@ -122,8 +124,8 @@ class MoviesRepository(private val dataStore : RemoteDataStore, context: Context
             instanceDataBase.moviesDao.updateMovies(convertMovieToMovieDB(movies = movies))
             movies.forEach {
                 instanceDataBase.moviesDao.updateActors(convertMovieToActorsDB(it.id,it.actors))
-                instanceDataBase.moviesDao.updateGenres(it.genres)
-                Log.v("saveMovie"," ${it.id},${it.actors}")
+                instanceDataBase.moviesDao.updateGenres(convertMovieToGenresDB(it.id,it.genres))
+                Log.v("saveMovie"," ${it.id},${it.actors},${it.genres}")
             }
         }
     }

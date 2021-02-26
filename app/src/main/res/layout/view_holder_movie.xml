@@ -10,7 +10,7 @@
 
     <ImageView
         android:id="@+id/iv_movie"
-        android:layout_width="wrap_content"
+        android:layout_width="166dp"
         android:layout_height="245dp"
         android:contentDescription="@string/todo10"
         android:scaleType="centerCrop"

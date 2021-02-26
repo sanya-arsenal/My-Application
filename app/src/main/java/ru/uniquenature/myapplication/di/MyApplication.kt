@@ -22,12 +22,17 @@ class MyApplication : Application() {
             single { MoviesDataBase.create(get()) }
             single { MoviesRepository(get(),get()) }
             viewModel { ListMoviesViewModel(get(),get()) }
+        }
+
+        val movieDetailsModule = module {
+            single { MoviesRepository(get(),get()) }
             viewModel { DetailsMovieViewModel(get(),get()) }
         }
 
         startKoin{
             androidContext(this@MyApplication)
             modules(movieListModule)
+            modules(movieDetailsModule)
         }
     }
 

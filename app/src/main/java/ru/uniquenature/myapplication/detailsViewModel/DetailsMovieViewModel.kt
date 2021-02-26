@@ -28,7 +28,7 @@ class DetailsMovieViewModel(private val check: VerifyData, private val repositor
     fun loadingDetails(bundle:Bundle) {
         viewModelScope.launch(exceptionHandler) {
             val id = bundle.getLong(KEY_ID_MOVIE)
-            val movie = repository.readMovieDB(id)
+            val movie = repository.getMovieForDB(id)
             val newState = when (movie.let { check.checkedMovie(movie) }) {
                 is VerifyResult.Error -> ViewModelDetailsState.Error("Error")
                 else -> movie.let { ViewModelDetailsState.Success(it) }

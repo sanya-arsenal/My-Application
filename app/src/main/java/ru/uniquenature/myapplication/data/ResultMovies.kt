@@ -68,12 +68,18 @@ data class MoviesTableEntity (
         val voteCount: Long
 )
 
-data class MovieWithActors(
+data class MovieWithActorsGenres(
         @Embedded val moviesTableEntity: MoviesTableEntity,
         @Relation(
                 parentColumn = "id",
                 entityColumn = "id_Movie",
                 entity = ActorsTableEntity::class
         )
-        val actors: List<Actor>
+        val actors: List<Actor>,
+        @Relation(
+                parentColumn = "id",
+                entityColumn = "id_Movie",
+                entity = GenreTableEntity::class
+        )
+        val genres: List<Genre>
 )

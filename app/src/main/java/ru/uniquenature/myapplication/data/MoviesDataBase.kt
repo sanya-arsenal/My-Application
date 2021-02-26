@@ -3,7 +3,7 @@ package ru.uniquenature.myapplication.data
 import android.content.Context
 import androidx.room.*
 
-@Database(entities = [MoviesTableEntity::class, Genre::class, ActorsTableEntity::class],version = 3,exportSchema = false)
+@Database(entities = [MoviesTableEntity::class, GenreTableEntity::class, ActorsTableEntity::class],version = 4,exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class MoviesDataBase : RoomDatabase(){
     abstract val moviesDao : MoviesDao

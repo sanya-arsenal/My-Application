@@ -28,7 +28,7 @@ class ListMoviesViewModel(private val check: VerifyData, private val repository:
     fun loadingMovies(){
         viewModelScope.launch(exceptionHandler) {
             mutableListMovies.value = ViewModelListState.Loading
-            val list = repository.readMoviesDB()
+            val list = repository.getMoviesForDB()
             list.sortedBy { it.ratings }
             val newState = when(check.checkedMovies(list)){
                 is VerifyResult.Error-> ViewModelListState.Error("Loading error DB")
@@ -43,6 +43,7 @@ class ListMoviesViewModel(private val check: VerifyData, private val repository:
                 is VerifyResult.Success-> ViewModelListState.Success(list1)
             }
             mutableListMovies.value = newState1
+            list1.sortedBy { it.ratings }
             repository.saveMoviesDB(list1)
         }
     }
