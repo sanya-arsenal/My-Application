@@ -10,10 +10,8 @@ import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 
-object RemoteDataStore {
-    const val API_KEY_HEADER = "api-key"
+class RemoteDataStore {
     private val json = Json { ignoreUnknownKeys = true }
-    val moviesRepository = MoviesRepository()
 
     private class MoviesHeaderInterceptors : Interceptor{
         override fun intercept(chain: Interceptor.Chain): Response {
@@ -62,5 +60,10 @@ object RemoteDataStore {
     @ExperimentalSerializationApi
     suspend fun getActors(movie_id:Long):List<Actor>{
         return moviesAPI.getActors(movie_id).cast
+
+    }
+
+    companion object {
+        const val API_KEY_HEADER = "api-key"
     }
 }

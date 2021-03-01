@@ -16,12 +16,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.serialization.ExperimentalSerializationApi
 import ru.uniquenature.myapplication.R
-import ru.uniquenature.myapplication.viewModel.ListMoviesViewModel
-import ru.uniquenature.myapplication.viewModel.ListViewModelFactory
+import ru.uniquenature.myapplication.listViewModel.ListMoviesViewModel
+import ru.uniquenature.myapplication.listViewModel.ListViewModelFactory
 import ru.uniquenature.myapplication.data.Movie
 
 class FragmentMoviesList : Fragment() {
-    private val viewModel: ListMoviesViewModel by viewModels { ListViewModelFactory() }
+    private val viewModel: ListMoviesViewModel by viewModels { ListViewModelFactory(applicationContext = requireContext().applicationContext) }
 
     private var recycler: RecyclerView? = null
     private var progress: View? = null
@@ -53,7 +53,7 @@ class FragmentMoviesList : Fragment() {
     }
 
     private fun showMovies(movies:List<Movie>){
-        recycler?.adapter = MoviesAdapter(movies){item -> doClick(item)}
+        recycler?.adapter = MoviesAdapter(movies){item -> doClick(item.id)}
         progress?.isVisible = false
     }
 
@@ -70,9 +70,10 @@ class FragmentMoviesList : Fragment() {
         recycler?.layoutManager = GridLayoutManager(context, 2)
     }
 
-    private fun doClick(movie:Movie) {
-            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.main_container, FragmentMoviesDetails.newInstance(movie))
-                .addToBackStack("FragmentMoviesDetails").commit()
+
+    private fun doClick(id_movie:Long) {
+        requireActivity().supportFragmentManager.beginTransaction().add(R.id.main_container, FragmentMoviesDetails.newInstance(id_movie))
+             .addToBackStack("FragmentMoviesDetails").commit()
     }
 
     override fun onDestroyView() {

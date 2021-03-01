@@ -15,14 +15,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ru.uniquenature.myapplication.R
-import ru.uniquenature.myapplication.viewModel.DetailsMovieViewModel
-import ru.uniquenature.myapplication.viewModel.DetailsViewModelFactory
+import ru.uniquenature.myapplication.detailsViewModel.DetailsMovieViewModel
+import ru.uniquenature.myapplication.detailsViewModel.DetailsViewModelFactory
 import ru.uniquenature.myapplication.data.Movie
 
 class FragmentMoviesDetails : Fragment() {
-    private val viewModel: DetailsMovieViewModel by viewModels { DetailsViewModelFactory() }
+    private val viewModel: DetailsMovieViewModel by viewModels { DetailsViewModelFactory(applicationContext = requireContext().applicationContext) }
 
-    private var movie: Movie? = null
     private var recyclerActor: RecyclerView? = null
     private var backFragment: TextView? = null
     private var age: TextView? = null
@@ -58,8 +57,7 @@ class FragmentMoviesDetails : Fragment() {
 
     private fun backFragment(){
         backFragment?.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(R.id.main_container, FragmentMoviesList()).commit()
+            requireActivity().supportFragmentManager.popBackStack()
         }
     }
 
@@ -82,7 +80,7 @@ class FragmentMoviesDetails : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun showResult(movie: Movie) {
-        age?.text = movie.minimumAge.toString() + "+"
+        age?.text = movie.minimumAge.toString()+ "+"
         title?.text = movie.title
         image?.let { Glide.with(this).load(movie.backdrop).into(it) }
         genres?.text = movie.genres.joinToString(separator = ", ") { it.name }
@@ -93,10 +91,10 @@ class FragmentMoviesDetails : Fragment() {
     }
 
     companion object{
-        private const val KEY_MOVIE_DATA = "movieDetails"
-        fun newInstance(movie:Movie) = FragmentMoviesDetails().apply{
+        private const val KEY_ID_MOVIE= "id_Movie"
+        fun newInstance(id_movie:Long) = FragmentMoviesDetails().apply{
                 arguments = Bundle().apply {
-                    putParcelable(KEY_MOVIE_DATA, movie)
+                    putLong(KEY_ID_MOVIE, id_movie)
             }
         }
     }
